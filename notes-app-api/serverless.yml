@@ -55,3 +55,13 @@ functions:
           cors: true
           authorizer:
             arn: arn:aws:cognito-idp:eu-west-1:579160499119:userpool/eu-west-1_cKz8C6FNb
+
+  list:
+    handler: list.main
+    events:
+      - http:
+          path: notes
+          method: get
+          cors: true
+          authorizer:
+            arn: arn:aws:cognito-idp:eu-west-1:579160499119:userpool/eu-west-1_cKz8C6FNb
