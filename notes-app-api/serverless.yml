@@ -65,3 +65,23 @@ functions:
           cors: true
           authorizer:
             arn: arn:aws:cognito-idp:eu-west-1:579160499119:userpool/eu-west-1_cKz8C6FNb
+
+  update:
+    handler: update.main
+    events:
+      - http:
+          path: notes/{id}
+          method: put
+          cors: true
+          authorizer:
+            arn: arn:aws:cognito-idp:eu-west-1:579160499119:userpool/eu-west-1_cKz8C6FNb
+
+  delete:
+    handler: delete.main
+    events:
+      - http:
+          path: notes/{id}
+          method: delete
+          cors: true
+          authorizer:
+            arn: arn:aws:cognito-idp:eu-west-1:579160499119:userpool/eu-west-1_cKz8C6FNb
