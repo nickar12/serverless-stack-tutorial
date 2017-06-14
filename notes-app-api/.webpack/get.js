@@ -61,55 +61,51 @@
 
 	var main = exports.main = function () {
 	  var _ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee(event, context, callback) {
-	    var data, params, result;
+	    var params, result;
 	    return _regenerator2.default.wrap(function _callee$(_context) {
 	      while (1) {
 	        switch (_context.prev = _context.next) {
 	          case 0:
-	            data = JSON.parse(event.body);
 	            params = {
 	              TableName: 'notes',
-	              Item: {
+	              Key: {
 	                userId: event.requestContext.authorizer.claims.sub,
-	                noteId: _uuid2.default.v1(),
-	                content: data.content,
-	                attachment: data.attachment,
-	                createdAt: new Date().getTime()
+	                noteId: event.pathParameters.id
 	              }
 	            };
-	            _context.prev = 2;
-	            _context.next = 5;
-	            return dynamoDbLib.call('put', params);
+	            _context.prev = 1;
+	            _context.next = 4;
+	            return dynamoDbLib.call('get', params);
 
-	          case 5:
+	          case 4:
 	            result = _context.sent;
 
-	            callback(null, (0, _responseLib.success)(params.Item));
-	            _context.next = 12;
+	            if (result.Item) {
+	              callback(null, (0, _responseLib.success)(result.Item));
+	            } else {
+	              callback(null, (0, _responseLib.failure)({ status: false, error: 'Item not found.' }));
+	            }
+	            _context.next = 11;
 	            break;
 
-	          case 9:
-	            _context.prev = 9;
-	            _context.t0 = _context['catch'](2);
+	          case 8:
+	            _context.prev = 8;
+	            _context.t0 = _context['catch'](1);
 
 	            callback(null, (0, _responseLib.failure)({ status: false }));
 
-	          case 12:
+	          case 11:
 	          case 'end':
 	            return _context.stop();
 	        }
 	      }
-	    }, _callee, this, [[2, 9]]);
+	    }, _callee, this, [[1, 8]]);
 	  }));
 
 	  return function main(_x, _x2, _x3) {
 	    return _ref.apply(this, arguments);
 	  };
 	}();
-
-	var _uuid = __webpack_require__(3);
-
-	var _uuid2 = _interopRequireDefault(_uuid);
 
 	var _dynamodbLib = __webpack_require__(4);
 
@@ -136,12 +132,7 @@
 	module.exports = require("babel-runtime/helpers/asyncToGenerator");
 
 /***/ }),
-/* 3 */
-/***/ (function(module, exports) {
-
-	module.exports = require("uuid");
-
-/***/ }),
+/* 3 */,
 /* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
