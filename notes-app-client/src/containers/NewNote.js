@@ -47,7 +47,7 @@ class NewNote extends Component {
     this.setState({ isLoading: true });
 
     try {
-      const uploadFilename = (this.file)
+      const uploadedFilename = (this.file)
         ? (await s3Upload(this.file, this.props.userToken)).Location
         : null;
 
